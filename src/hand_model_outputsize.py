@@ -11,6 +11,8 @@ for i in tqdm(range(10, 1000)):
     data = torch.randn(1, 3, i, i)
     if torch.cuda.is_available():
         data = data.cuda()
+    elif torch.backends.mps.is_available():
+                data = data.to(torch.device("mps"))
     size[i] = model(data).size(2)
 
 with open('hand_model_output_size.json') as f:
